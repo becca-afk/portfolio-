@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, Copy, Check, Globe } from 'lucide-react';
+import { Mail, Phone, Copy, Check, Globe, Building2, Printer, MapPin } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 
 // Clean SVG icons for GitHub & LinkedIn
@@ -28,20 +28,28 @@ export const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="section">
-      <h2>Get In Touch</h2>
+      <h2>Get In Touch for Attachment</h2>
       <div className="glass-card" style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto' }}>
-        <p style={{ marginBottom: '2rem', fontSize: '1.1rem', color: '#e2e8f0', lineHeight: '1.7' }}>
-          I'm currently looking for an industrial attachment opportunity ({personalInfo.attachmentPeriod}). Let's connect!
+        <p style={{ marginBottom: '1.75rem', fontSize: '1.08rem', color: '#e2e8f0', lineHeight: '1.7' }}>
+          Currently seeking an industrial attachment placement for <strong>{personalInfo.attachmentPeriod}</strong> (Reg No: <strong>{personalInfo.studentId}</strong>). Open to KCA University ICT Services and reputable technology teams across Nairobi and Kenya.
         </p>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.9rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
           <a
-            href={`mailto:${personalInfo.email}`}
+            href={`mailto:${personalInfo.email}?subject=KCA%20Attachment%20Application%20-%20Rebecca%20Nabusambya`}
             className="btn btn-primary"
             style={{ padding: '0.75rem 1.75rem' }}
           >
             <Mail size={18} />
-            Email Me
+            Email Application
+          </a>
+          <a
+            href="#kca-application"
+            className="btn btn-outline"
+            style={{ padding: '0.75rem 1.75rem' }}
+          >
+            <Printer size={18} />
+            Print Attachment CV
           </a>
           <a
             href={personalInfo.linkedin}
@@ -66,30 +74,35 @@ export const Contact: React.FC = () => {
         </div>
 
         <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
           gap: '1rem',
-          paddingTop: '1.5rem',
-          borderTop: '1px solid var(--glass-border)'
+          paddingTop: '1.75rem',
+          borderTop: '1px solid var(--glass-border)',
+          textAlign: 'left'
         }}>
+          {/* Phone */}
           <div style={{
+            background: 'rgba(255, 255, 255, 0.02)',
+            padding: '12px 16px',
+            borderRadius: '10px',
+            border: '1px solid var(--glass-border)',
             display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            color: 'var(--text-secondary)',
-            fontSize: '0.95rem'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-            <Phone size={16} color="var(--accent-blue)" />
-            <span>Phone: <strong style={{ color: '#fff' }}>{personalInfo.phone}</strong></span>
+            <div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'block' }}>Direct Phone / WhatsApp</span>
+              <strong style={{ color: '#fff', fontSize: '0.95rem' }}>{personalInfo.formattedPhone}</strong>
+            </div>
             <button
-              onClick={() => handleCopy(personalInfo.phone, 'phone')}
+              onClick={() => handleCopy(personalInfo.formattedPhone, 'phone')}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid var(--glass-border)',
                 color: 'var(--text-secondary)',
                 borderRadius: '6px',
-                padding: '3px 8px',
+                padding: '5px 8px',
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -103,34 +116,93 @@ export const Contact: React.FC = () => {
             </button>
           </div>
 
+          {/* Student Email */}
           <div style={{
+            background: 'rgba(255, 255, 255, 0.02)',
+            padding: '12px 16px',
+            borderRadius: '10px',
+            border: '1px solid var(--glass-border)',
             display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            color: 'var(--text-secondary)',
-            fontSize: '0.95rem'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-            <Mail size={16} color="var(--accent-blue)" />
-            <span>Email: <strong style={{ color: '#fff' }}>{personalInfo.email}</strong></span>
+            <div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'block' }}>KCA Student Email</span>
+              <strong style={{ color: '#fff', fontSize: '0.92rem' }}>{personalInfo.email}</strong>
+            </div>
             <button
-              onClick={() => handleCopy(personalInfo.email, 'email')}
+              onClick={() => handleCopy(personalInfo.email, 'studentEmail')}
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid var(--glass-border)',
                 color: 'var(--text-secondary)',
                 borderRadius: '6px',
-                padding: '3px 8px',
+                padding: '5px 8px',
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
                 fontSize: '0.75rem'
               }}
-              title="Copy email"
+              title="Copy student email"
             >
-              {copiedType === 'email' ? <Check size={12} color="#4ade80" /> : <Copy size={12} />}
-              {copiedType === 'email' ? 'Copied' : 'Copy'}
+              {copiedType === 'studentEmail' ? <Check size={12} color="#4ade80" /> : <Copy size={12} />}
+              {copiedType === 'studentEmail' ? 'Copied' : 'Copy'}
             </button>
+          </div>
+
+          {/* Personal Email */}
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.02)',
+            padding: '12px 16px',
+            borderRadius: '10px',
+            border: '1px solid var(--glass-border)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'block' }}>Personal Email</span>
+              <strong style={{ color: '#fff', fontSize: '0.92rem' }}>{personalInfo.personalEmail}</strong>
+            </div>
+            <button
+              onClick={() => handleCopy(personalInfo.personalEmail, 'personalEmail')}
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--text-secondary)',
+                borderRadius: '6px',
+                padding: '5px 8px',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '0.75rem'
+              }}
+              title="Copy personal email"
+            >
+              {copiedType === 'personalEmail' ? <Check size={12} color="#4ade80" /> : <Copy size={12} />}
+              {copiedType === 'personalEmail' ? 'Copied' : 'Copy'}
+            </button>
+          </div>
+
+          {/* Location & Institution */}
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.02)',
+            padding: '12px 16px',
+            borderRadius: '10px',
+            border: '1px solid var(--glass-border)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            <MapPin size={20} color="var(--accent-blue)" style={{ flexShrink: 0 }} />
+            <div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'block' }}>Location & Institution</span>
+              <span style={{ color: '#fff', fontSize: '0.88rem', fontWeight: 600 }}>
+                {personalInfo.location} • KCA University
+              </span>
+            </div>
           </div>
         </div>
       </div>
